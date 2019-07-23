@@ -38,9 +38,17 @@
                ReferencedContainer = "container:DeviceAgent.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "4166C9AB22E7009800C8BEBF"
+               BuildableName = "TestAppUITests.xctest"
+               BlueprintName = "TestAppUITests"
+               ReferencedContainer = "container:DeviceAgent.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -61,8 +69,6 @@
             ReferencedContainer = "container:DeviceAgent.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
