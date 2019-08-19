@@ -231,7 +231,7 @@ After do |scenario|
       end
     when :pry
       if scenario.failed?
-        binding.pry
+        # binding.pry
       end
     else
       # Do nothing
