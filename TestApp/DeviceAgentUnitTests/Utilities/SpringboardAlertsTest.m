@@ -41,16 +41,16 @@
 
     expect(actual).to.equal(nil);
 
-    alertTitle = @"souhaite accéder à vos rappels";
-    expectedButton = @"OK";
+    alertTitle = @"Mise à jour des réglages de l’opérateur";
+    expectedButton = @"Plus tard";
     expectedShouldAccept = YES;
     actual = [[SpringBoardAlerts shared] alertMatchingTitle:alertTitle];
 
     expect(actual.defaultDismissButtonMark).to.equal(expectedButton);
     expect(actual.shouldAccept).to.equal(expectedShouldAccept);
 
-    alertTitle = @"запрашивает разрешение на использование Вашей текущей геопозиции";
-    expectedButton = @"OK";
+    alertTitle = @"Доступны новые настройки. Хотите обновить их сейчас?";
+    expectedButton = @"Не сейчас";
     expectedShouldAccept = YES;
     actual = [[SpringBoardAlerts shared] alertMatchingTitle:alertTitle];
 
@@ -67,14 +67,15 @@
 
     alertTitle = @"Carrier Settings Update";
     expectedButton = @"Not Now";
-    expectedShouldAccept = NO;
+    expectedShouldAccept = YES;
     actual = [[SpringBoardAlerts shared] alertMatchingTitle:alertTitle];
 
     expect(actual.defaultDismissButtonMark).to.equal(expectedButton);
     expect(actual.shouldAccept).to.equal(expectedShouldAccept);
 
-    alertTitle = @"acesso à sua localização";
-    expectedButton = @"Permitir";
+    alertTitle = @"يتوفر الآن إعدادات جديدة. هل ترغب بالتحديث الآن؟";
+    expectedButton = @"ليس الآن";
+
     expectedShouldAccept = YES;
     actual = [[SpringBoardAlerts shared] alertMatchingTitle:alertTitle];
 

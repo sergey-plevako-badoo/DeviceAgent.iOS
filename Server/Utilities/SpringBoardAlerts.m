@@ -5,21 +5,46 @@
 #import "SpringBoardAlert.h"
 
 NSString * languages[] = {
+    @"springboard-alerts-ar",
+    @"springboard-alerts-ca",
     @"springboard-alerts-cs",
     @"springboard-alerts-da",
     @"springboard-alerts-de",
     @"springboard-alerts-el",
+    @"springboard-alerts-en_AU",
+    @"springboard-alerts-en_GB",
     @"springboard-alerts-en",
     @"springboard-alerts-es_419",
+    @"springboard-alerts-es",
+    @"springboard-alerts-fi",
+    @"springboard-alerts-fr_CA",
     @"springboard-alerts-fr",
     @"springboard-alerts-he",
+    @"springboard-alerts-hi",
+    @"springboard-alerts-hr",
     @"springboard-alerts-hu",
+    @"springboard-alerts-id",
     @"springboard-alerts-it",
+    @"springboard-alerts-ja",
     @"springboard-alerts-ko",
+    @"springboard-alerts-ms",
     @"springboard-alerts-nl",
+    @"springboard-alerts-no",
+    @"springboard-alerts-pl",
     @"springboard-alerts-pt_PT",
+    @"springboard-alerts-pt",
+    @"springboard-alerts-ro",
     @"springboard-alerts-ru",
-    @"springboard-alerts-sv"};
+    @"springboard-alerts-sk",
+    @"springboard-alerts-sv",
+    @"springboard-alerts-th",
+    @"springboard-alerts-tr",
+    @"springboard-alerts-uk",
+    @"springboard-alerts-vi",
+    @"springboard-alerts-zh_CN",
+    @"springboard-alerts-zh_HK",
+    @"springboard-alerts-zh_TW"
+};
 
 int LANGUAGES_COUNT = sizeof(languages)/sizeof(languages[0]);
 
