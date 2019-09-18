@@ -9,7 +9,7 @@
 
 - (XCUIElementQuery *)applyInternal:(XCUIElementQuery *)query {
     NSString *escaped = [QuerySpecifier escapeString:self.value];
-    return [query matchingIdentifier:escaped];
+    return [query matchingPredicate:[NSPredicate predicateWithFormat:@"identifier == %@", escaped]];
 }
 
 @end

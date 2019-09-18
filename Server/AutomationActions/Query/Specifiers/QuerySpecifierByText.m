@@ -7,7 +7,12 @@
 static NSArray <NSString *> *textProperties;
 
 + (void)load {
-    textProperties = @[@"label", @"title", @"value", @"placeholderValue"];
+    textProperties = @[
+        @"label",
+        @"title",
+        //@"value",
+        //@"placeholderValue"
+    ];
 }
 
 + (NSArray <NSString *> *)textProperties {
