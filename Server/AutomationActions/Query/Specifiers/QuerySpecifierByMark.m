@@ -16,8 +16,8 @@ static NSArray<NSString *> *markedProperties;
                              @"label",
                              @"accessibilityLabel",
                              @"title",
-                             @"value",
-                             @"placeholderValue"
+                             //@"value",
+                             //@"placeholderValue"
                              ];
     });
 }
