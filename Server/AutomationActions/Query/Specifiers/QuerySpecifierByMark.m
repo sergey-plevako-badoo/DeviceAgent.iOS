@@ -16,8 +16,8 @@ static NSArray<NSString *> *markedProperties;
                              @"label",
                              @"accessibilityLabel",
                              @"title",
-                             //@"value",
-                             //@"placeholderValue"
+//                             @"value",
+//                             @"placeholderValue"
                              ];
     });
 }
@@ -54,3 +54,31 @@ static NSArray<NSString *> *markedProperties;
 }
 
 @end
+
+//{
+//    "result": [
+//        {
+//            "id": "text field",
+//            "has_focus": false,
+//            "label": null,
+//            "type": "TextField",
+//            "title": null,
+//            "value": "Schreib!",
+//            "hit_point": {
+//                "x": 189,
+//                "y": 113
+//            },
+//            "enabled": true,
+//            "placeholder": "Schreib!",
+//            "hitable": true,
+//            "has_keyboard_focus": false,
+//            "selected": false,
+//            "rect": {
+//                "y": 98,
+//                "x": 0,
+//                "height": 30,
+//                "width": 378
+//            }
+//        }
+//    ]
+//}

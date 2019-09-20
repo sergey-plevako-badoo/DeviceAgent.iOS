@@ -46,6 +46,7 @@
 
 /* Begin PBXBuildFile section */
 		0AA3924F23279A68000E799B /* SpringBoardAlertsCurrentLanguageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA3924D23279A68000E799B /* SpringBoardAlertsCurrentLanguageTests.m */; };
+		2C2A2CC12334BB770098DBC5 /* QueryTester.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2A2CC02334BB770098DBC5 /* QueryTester.m */; };
 		4107F8FE231D7298003961AF /* Resources.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4107F8FC231D7262003961AF /* Resources.xcassets */; };
 		41188FEA22E9958D0012886A /* XCWebViews.m in Sources */ = {isa = PBXBuildFile; fileRef = 4166C9AE22E7009800C8BEBF /* XCWebViews.m */; };
 		419BE54B231E46D800DF0ABD /* Resources.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4107F8FC231D7262003961AF /* Resources.xcassets */; };
@@ -750,6 +751,7 @@
 
 /* Begin PBXFileReference section */
 		0AA3924D23279A68000E799B /* SpringBoardAlertsCurrentLanguageTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SpringBoardAlertsCurrentLanguageTests.m; sourceTree = "<group>"; };
+		2C2A2CC02334BB770098DBC5 /* QueryTester.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QueryTester.m; sourceTree = "<group>"; };
 		4107F8FC231D7262003961AF /* Resources.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Resources.xcassets; sourceTree = "<group>"; };
 		4166C9AE22E7009800C8BEBF /* XCWebViews.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XCWebViews.m; sourceTree = "<group>"; };
 		634244EC948D56732C2565E5 /* SpringBoardAlerts.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = SpringBoardAlerts.m; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; };
@@ -2332,6 +2334,7 @@
 				F52E0D7E22E96D3600DD06B8 /* Screenshotter.m */,
 				F58D28291D4F96BD000FF6C0 /* CBXStressTests.m */,
 				F52A4C6A20246C910052F27F /* CBXDylibInjectionTest.m */,
+				2C2A2CC02334BB770098DBC5 /* QueryTester.m */,
 			);
 			path = UITests;
 			sourceTree = "<group>";
@@ -3365,6 +3368,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F58D282B1D4F96BD000FF6C0 /* CBXStressTests.m in Sources */,
+				2C2A2CC12334BB770098DBC5 /* QueryTester.m in Sources */,
 				41188FEA22E9958D0012886A /* XCWebViews.m in Sources */,
 				F547EEAF1E43793D000FC160 /* CBXMachClock.m in Sources */,
 				F52A4C6B20246C910052F27F /* CBXDylibInjectionTest.m in Sources */,

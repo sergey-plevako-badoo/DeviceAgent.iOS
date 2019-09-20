@@ -42,6 +42,9 @@
           NSMutableArray *results = [NSMutableArray arrayWithCapacity:elements.count];
           for (XCUIElement *el in elements) {
               NSDictionary *json = [JSONUtils snapshotOrElementToJSON:el];
+              NSLog(@"el = %@", el);
+              NSLog(@"el.value = %@", el.value);
+              NSLog(@"json = %@", json);
               [results addObject:json];
           }
           [response respondWithJSON:@{@"result" : results}];
