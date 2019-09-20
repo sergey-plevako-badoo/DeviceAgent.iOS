@@ -33,8 +33,9 @@
 @property NSInteger debugMessageBufferOverflow;
 @property(retain) NSObject<OS_dispatch_queue> *queue;
 @property(readonly) XCTestConfiguration *testConfiguration;
+@property(readonly) id <XCTestManager_ManagerInterface> managerProxy;
 
-+ (id)sharedTestDriver;
++ (instancetype)sharedTestDriver;
 - (void)IDESessionDidDisconnect:(id)arg1;
 - (void)_queue_flushDebugMessageBufferWithBlock:(CDUnknownBlockType)arg1;
 - (BOOL)_readyIDESession:(id)arg1 forTestRunSession:(id)arg2 error:(id *)arg3;

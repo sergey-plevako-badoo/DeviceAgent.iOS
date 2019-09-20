@@ -4,6 +4,12 @@
 #import "InvalidArgumentException.h"
 #import "CBXConstants.h"
 #import "CBXDecimalRounder.h"
+#import "XCTestManager_ManagerInterface-Protocol.h"
+#import "Application.h"
+#import "../PrivateHeaders/XCTest/XCTestDriver.h"
+#import "../PrivateHeaders/XCTest/XCTRunnerDaemonSession.h"
+#import "../PrivateHeaders/XCTest/XCUIDevice.h"
+#import "../PrivateHeaders/XCTest/XCAXClient_iOS.h"
 
 @implementation JSONUtils
 
@@ -39,7 +45,7 @@ static NSDictionary *typeStringToElementType;
 
 + (NSDictionary *)snapshotOrElementToJSON:(id)element {
     NSMutableDictionary *json = [NSMutableDictionary dictionary];
-    XCElementSnapshot *snapshot;
+    __block XCElementSnapshot *snapshot;
     if ([element isKindOfClass:[XCElementSnapshot class]]) {
         snapshot = element;
     } else {
@@ -55,6 +61,50 @@ static NSDictionary *typeStringToElementType;
             }
         }
         snapshot = [(XCUIElement *)element lastSnapshot];
+    }
+
+    XCAccessibilityElement *el = [(XCUIElement *)element lastSnapshot].accessibilityElement;
+
+    static id<XCTestManager_ManagerInterface> proxy = nil;
+    if ([[XCTestDriver sharedTestDriver] respondsToSelector:@selector(managerProxy)]) {
+      proxy = [XCTestDriver sharedTestDriver].managerProxy;
+    } else {
+        proxy = ((XCTRunnerDaemonSession *)[XCTRunnerDaemonSession sharedSession]).daemonProxy;
+    }
+
+    id FBAXClient = [XCUIDevice.sharedDevice accessibilityInterface];
+
+    NSDictionary *defaultParameters = [FBAXClient defaultParameters];
+    NSArray *defaultAttributes = nil;
+
+    __block BOOL loading = YES;
+
+    BOOL useNewSnapshotAPI = [(NSObject *)proxy respondsToSelector:@selector(_XCT_requestSnapshotForElement:attributes:parameters:reply:)];
+    if (useNewSnapshotAPI) {
+        [proxy _XCT_requestSnapshotForElement:el
+        attributes: defaultAttributes
+        parameters: defaultParameters
+             reply:^(XCElementSnapshot *iSnapshot, NSError *error) {
+               if (error) {
+               }
+               snapshot = iSnapshot;
+               loading = NO;
+             }];
+    } else {
+        [proxy _XCT_snapshotForElement:el
+        attributes: defaultAttributes
+        parameters: defaultParameters
+             reply:^(XCElementSnapshot *iSnapshot, NSError *error) {
+               if (error) {
+               }
+               snapshot = iSnapshot;
+               loading = NO;
+             }];
+    }
+
+
+    while (loading) {
+      [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
     }
 
 
