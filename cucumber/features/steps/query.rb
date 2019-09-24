@@ -312,6 +312,7 @@ Then(/^I get Text Field by \"(.+)\" query with string \"(.+)\" and check value \
     actual = wait_for_view({id: string_query})
   when "text"
     actual = wait_for_view({text: string_query})
+  end
 
   expect(actual["value"]).to be == value
 end
