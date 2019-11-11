@@ -16,7 +16,7 @@
                   <BuildableReference
                      BuildableIdentifier = "primary"
                      BlueprintIdentifier = "898743D41C5847B30084FD93"
-                     BuildableName = "DeviceAgent.xctest"
+                     BuildableName = "WebDriverAgentRunner.xctest"
                      BlueprintName = "DeviceAgent"
                      ReferencedContainer = "container:DeviceAgent.xcodeproj">
                   </BuildableReference>
@@ -28,13 +28,13 @@
          <BuildActionEntry
             buildForTesting = "YES"
             buildForRunning = "YES"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "898743D41C5847B30084FD93"
-               BuildableName = "DeviceAgent.xctest"
+               BuildableName = "WebDriverAgentRunner.xctest"
                BlueprintName = "DeviceAgent"
                ReferencedContainer = "container:DeviceAgent.xcodeproj">
             </BuildableReference>
@@ -50,7 +50,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "898743D41C5847B30084FD93"
-            BuildableName = "DeviceAgent.xctest"
+            BuildableName = "WebDriverAgentRunner.xctest"
             BlueprintName = "DeviceAgent"
             ReferencedContainer = "container:DeviceAgent.xcodeproj">
          </BuildableReference>
@@ -61,7 +61,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "898743D41C5847B30084FD93"
-               BuildableName = "DeviceAgent.xctest"
+               BuildableName = "WebDriverAgentRunner.xctest"
                BlueprintName = "DeviceAgent"
                ReferencedContainer = "container:DeviceAgent.xcodeproj">
             </BuildableReference>
@@ -95,6 +95,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "898743D41C5847B30084FD93"
+            BuildableName = "WebDriverAgentRunner.xctest"
+            BlueprintName = "DeviceAgent"
+            ReferencedContainer = "container:DeviceAgent.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
