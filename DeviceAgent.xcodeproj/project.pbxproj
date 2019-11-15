@@ -1144,7 +1144,7 @@
 		896C7C751D19AE990017CE08 /* ClearText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ClearText.h; path = AutomationActions/Gestures/ClearText.h; sourceTree = "<group>"; };
 		896C7C761D19AE990017CE08 /* ClearText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ClearText.m; path = AutomationActions/Gestures/ClearText.m; sourceTree = "<group>"; };
 		898743BC1C5847B30084FD93 /* AppStub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppStub.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		898743D51C5847B30084FD93 /* WebDriverAgentRunner.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WebDriverAgentRunner.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		898743D51C5847B30084FD93 /* DeviceAgent.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DeviceAgent.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		899696B81CADF84B00BB42E2 /* EnterText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EnterText.h; path = AutomationActions/Gestures/EnterText.h; sourceTree = "<group>"; };
 		899696B91CADF84B00BB42E2 /* EnterText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EnterText.m; path = AutomationActions/Gestures/EnterText.m; sourceTree = "<group>"; };
 		899696C21CB3360900BB42E2 /* Pinch.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = Pinch.h; path = AutomationActions/Gestures/Pinch.h; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; };
@@ -1817,7 +1817,7 @@
 			isa = PBXGroup;
 			children = (
 				898743BC1C5847B30084FD93 /* AppStub.app */,
-				898743D51C5847B30084FD93 /* WebDriverAgentRunner.xctest */,
+				898743D51C5847B30084FD93 /* DeviceAgent.xctest */,
 				F5954E051CBD2E1200117745 /* TestApp.app */,
 				F58D28181D4F964D000FF6C0 /* UITest.xctest */,
 				F50BB27B1D73392100264915 /* Permissions.app */,
@@ -3449,7 +3449,7 @@
 			);
 			name = DeviceAgent;
 			productName = "xcuitest-serverUITests";
-			productReference = 898743D51C5847B30084FD93 /* WebDriverAgentRunner.xctest */;
+			productReference = 898743D51C5847B30084FD93 /* DeviceAgent.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 		F50BB27A1D73392100264915 /* Permissions */ = {
@@ -4704,9 +4704,9 @@
 			buildSettings = {
 				CLANG_ENABLE_CODE_COVERAGE = NO;
 				CLANG_ENABLE_MODULES = NO;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Anton Iakimov (7JAX7MNQHT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Anton Iakimov (7JAX7MNQHT)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "iPhone Developer: Anton Iakimov (7JAX7MNQHT)";
 				CODE_SIGN_STYLE = Manual;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 87V54RC58L;
@@ -4733,11 +4733,11 @@
 					"-framework",
 					XCTAutomationSupport,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.facebook.WebDriverAgentRunner.dev1;
-				PRODUCT_NAME = WebDriverAgentRunner;
+				PRODUCT_BUNDLE_IDENTIFIER = sh.calaba.DeviceAgent.dev1;
+				PRODUCT_NAME = DeviceAgent;
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "match Development com.facebook.WebDriverAgentRunner.dev1";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "match Development com.facebook.WebDriverAgentRunner.dev1";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development sh.calaba.DeviceAgent.dev1";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "match Development sh.calaba.DeviceAgent.dev1";
 			};
 			name = Debug;
 		};
@@ -4746,10 +4746,10 @@
 			buildSettings = {
 				CLANG_ENABLE_CODE_COVERAGE = NO;
 				CLANG_ENABLE_MODULES = NO;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Anton Iakimov (7JAX7MNQHT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Anton Iakimov (92QCT9CWLL)";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -4771,11 +4771,11 @@
 					"-framework",
 					XCTAutomationSupport,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.facebook.WebDriverAgentRunner.dev1;
-				PRODUCT_NAME = WebDriverAgentRunner;
+				PRODUCT_BUNDLE_IDENTIFIER = sh.calaba.DeviceAgent.dev1;
+				PRODUCT_NAME = DeviceAgent;
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development sh.calaba.DeviceAgent.dev1";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "match Development sh.calaba.DeviceAgent.dev1";
 			};
 			name = Release;
 		};
