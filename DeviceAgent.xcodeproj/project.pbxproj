@@ -4739,7 +4739,7 @@
 					"-framework",
 					XCTAutomationSupport,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = sh.calaba.DeviceAgent.dev1;
+				PRODUCT_BUNDLE_IDENTIFIER = sh.calaba.DeviceAgent;
 				PRODUCT_NAME = DeviceAgent;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development sh.calaba.DeviceAgent.dev1";
@@ -4777,7 +4777,7 @@
 					"-framework",
 					XCTAutomationSupport,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = sh.calaba.DeviceAgent.dev1;
+				PRODUCT_BUNDLE_IDENTIFIER = sh.calaba.DeviceAgent;
 				PRODUCT_NAME = DeviceAgent;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development sh.calaba.DeviceAgent.dev1";
