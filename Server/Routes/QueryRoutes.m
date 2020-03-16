@@ -15,6 +15,8 @@
 #import "CBXException.h"
 
 @implementation QueryRoutes
+
+
 + (NSArray <CBXRoute *> *)getRoutes {
     return
     @[
@@ -54,7 +56,7 @@
           NSDictionary *results;
 
           if (alert && alert.exists) {
-              NSString *alertTitle = alert.label;
+              NSString *alertTitle = [alert performSelector:@selector(label)];
               XCUIElementQuery *query = [alert descendantsMatchingType:XCUIElementTypeButton];
               NSArray<XCUIElement *> *buttons = [query allElementsBoundByIndex];
 
@@ -62,7 +64,7 @@
 
               for (XCUIElement *button in buttons) {
                   if (button.exists) {
-                      NSString *name = button.label;
+                      NSString *name = [button performSelector:@selector(label)];
                       if (name) {
                           [mutable addObject:name];
                       }

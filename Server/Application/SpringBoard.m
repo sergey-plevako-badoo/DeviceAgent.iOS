@@ -111,7 +111,7 @@ typedef enum : NSUInteger {
             alert = [self queryForAlert];
 
             if (alert && alert.exists) {
-                alertTitle = alert.label;
+                alertTitle = [alert performSelector:@selector(label)];
                 XCUIElementQuery *query = [alert descendantsMatchingType:XCUIElementTypeButton];
                 NSArray<XCUIElement *> *buttons = [query allElementsBoundByIndex];
 
@@ -119,7 +119,7 @@ typedef enum : NSUInteger {
 
                 for(XCUIElement *button in buttons) {
                     if (button.exists) {
-                        NSString *name = button.label;
+                        NSString *name = [button performSelector:@selector(label)];
                         if (name) {
                             [mutable addObject:name];
                         }
@@ -143,7 +143,7 @@ typedef enum : NSUInteger {
 - (XCUIElement *)findDismissButtonOnAlert: (XCUIElement *) alert marks: (NSArray *) marks {
     XCUIElement *button = nil;
     for (NSString *mark in marks) {
-        button = alert.buttons[mark];
+        button = [alert performSelector:@selector(buttons)][mark];
 
         // Resolve before asking if the button exists.
         [button cbx_resolve];
@@ -169,7 +169,7 @@ typedef enum : NSUInteger {
     }
 
     // .label is the title for English and German.  Hopefully for others too.
-    NSString *title = alert.label;
+    NSString *title = [alert performSelector:@selector(label)];
     SpringBoardAlert *springBoardAlert;
     springBoardAlert = [[SpringBoardAlerts shared] alertMatchingTitle:title];
 
@@ -264,7 +264,7 @@ typedef enum : NSUInteger {
         if (!alert) {
             return SpringBoardDismissAlertNoAlert;
         } else {
-            XCUIElement *button = alert.buttons[title];
+            XCUIElement *button = [alert performSelector:@selector(buttons)][title];
             [button cbx_resolve];
 
             if (!button || !button.exists) {
@@ -374,7 +374,8 @@ typedef enum : NSUInteger {
 
 - (CGPoint)pointByTranslatingPoint:(CGPoint)point {
     CGPoint translated = point;
-    CGSize appSize = self.frame.size;
+//    CGSize appSize = self.frame.size;
+    CGSize appSize = CGSizeMake(self.accessibilityFrame.size.width, self.accessibilityFrame.size.height);
     UIInterfaceOrientation orientation = self.interfaceOrientation;
 
     switch (orientation) {

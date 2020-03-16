@@ -55,7 +55,7 @@
         return nil;
     }
 
-    NSString *string = firstResponder.value;
+    NSString *string = [firstResponder performSelector:@selector(value)];
 
     if (!string || [string length] == 0) {
         DDLogDebug(@"There is no text in the element with keyboard focus %@",
@@ -91,7 +91,7 @@
     DDLogDebug(@"Clearing text with by tapping the delete key");
 
     CGRect frame;
-    frame = [deleteKey frame];
+    frame = deleteKey.frame;
 
     // There are cases where we cannot find a hit point.
     if (frame.origin.x <= 0.0 || frame.origin.y <= 0.0) {

@@ -14,10 +14,11 @@
 #import "XCUIElement.h"
 #import "XCUIHitPointResult.h"
 #import "XCUIDevice.h"
-#import "XCUIApplicationStateTypedef.h"
+//#import "XCUIApplicationStateTypedef.h"
 #endif
 
 #import "CBXConstants.h"
+#import "CBX-XCTest-Umbrella.h"
 
 // Defined in XCTAutomationSupport framework, so it is safe to import
 // in any context.
