@@ -29,7 +29,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (_XCTestCaseImplementation *)internalImplementation;
 - (void)setInternalImplementation:(_XCTestCaseImplementation *)implementation;
-
+@property(nonatomic) BOOL shouldHaltWhenReceivesControl;
+@property(nonatomic) BOOL shouldSetShouldHaltWhenReceivesControl;
 @end
 
 /**
