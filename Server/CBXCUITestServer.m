@@ -7,12 +7,16 @@
 #import "CBXProtocols.h"
 #import "CBXConstants.h"
 #import "CBXLogging.h"
+#import <CocoaLumberjack/CocoaLumberjack.h>
 #import "CBXOrientation.h"
 #import "CBXRoute.h"
+#import "FBTCPSocket.h"
+#import "FBMjpegServer.h"
 
 @interface CBXCUITestServer ()
 @property (atomic, strong) RoutingHTTPServer *server;
 @property (atomic, assign) BOOL isFinishedTesting;
+@property (nonatomic, nullable) FBTCPSocket *screenshotsBroadcaster;
 
 + (CBXCUITestServer *)sharedServer;
 - (id)init_private;
@@ -96,7 +100,9 @@ static NSString *serverName = @"CalabashXCUITestServer";
 
     DDLogDebug(@"Disabling screenshots in NSUserDefaults");
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"DisableScreenshots"];
-
+    
+    [self initScreenshotsBroadcaster];
+    
     while ([self.server isRunning] && !self.isFinishedTesting) {
         CFRunLoopRunInMode(kCFRunLoopDefaultMode, CBX_RUNLOOP_INTERVAL, false);
     }
@@ -111,6 +117,7 @@ static NSString *serverName = @"CalabashXCUITestServer";
                                          CBX_SERVER_SHUTDOWN_DELAY * NSEC_PER_SEC);
     dispatch_after(when, dispatch_get_main_queue(), ^{
         [self.server stop:NO];
+        [self stopScreenshotsBroadcaster];
         if ([self.server isRunning]) {
             DDLogDebug(@"DeviceAgent server has retired.");
         } else {
@@ -161,6 +168,27 @@ static NSString *serverName = @"CalabashXCUITestServer";
     for (CBXRoute *route in [UndefinedRoutes getRoutes]) {
         [self.server addRoute:route];
     }
+}
+
+- (void)initScreenshotsBroadcaster
+{
+  self.screenshotsBroadcaster = [[FBTCPSocket alloc]
+                                 initWithPort:(uint16_t)CBX_DEFAULT_MJPEG_PORT];
+  self.screenshotsBroadcaster.delegate = [[FBMjpegServer alloc] init];
+  NSError *error;
+  if (![self.screenshotsBroadcaster startWithError:&error]) {
+    DDLogDebug(@"Cannot init screenshots broadcaster service on port %@. Original error: %@", @(CBX_DEFAULT_MJPEG_PORT), error.description);
+    self.screenshotsBroadcaster = nil;
+  }
+}
+
+- (void)stopScreenshotsBroadcaster
+{
+  if (nil == self.screenshotsBroadcaster) {
+    return;
+  }
+
+  [self.screenshotsBroadcaster stop];
 }
 
 @end
