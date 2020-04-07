@@ -103,7 +103,12 @@ static NSString *serverName = @"CalabashXCUITestServer";
         [self.server setPort:port];
     }
     
-    DDLogDebug(@"Attempting to start the DeviceAgent server");
+    NSString *mjpegPortNumberString = [CBXCUITestServer valueFromArguments: NSProcessInfo.processInfo.arguments
+                                                   forKey: @"--mjpeg-server-port"];
+    NSUInteger mjpegPort = (NSUInteger)[mjpegPortNumberString integerValue];
+    
+    
+    DDLogDebug(@"Attempting to start the DeviceAgent server on port %@", @(port));
     serverStarted = [self attemptToStartWithError:&error];
 
     if (!serverStarted) {
@@ -119,7 +124,12 @@ static NSString *serverName = @"CalabashXCUITestServer";
     DDLogDebug(@"Disabling screenshots in NSUserDefaults");
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"DisableScreenshots"];
     
-    [self initScreenshotsBroadcaster];
+    if (mjpegPort == 0) {
+        [self initScreenshotsBroadcaster: CBX_DEFAULT_MJPEG_PORT];
+    }
+    else {
+        [self initScreenshotsBroadcaster: mjpegPort];
+    }
     
     while ([self.server isRunning] && !self.isFinishedTesting) {
         CFRunLoopRunInMode(kCFRunLoopDefaultMode, CBX_RUNLOOP_INTERVAL, false);
@@ -188,14 +198,14 @@ static NSString *serverName = @"CalabashXCUITestServer";
     }
 }
 
-- (void)initScreenshotsBroadcaster
+- (void)initScreenshotsBroadcaster:(NSUInteger)port
 {
   self.screenshotsBroadcaster = [[FBTCPSocket alloc]
-                                 initWithPort:(uint16_t)CBX_DEFAULT_MJPEG_PORT];
+                                 initWithPort:(uint16_t)port];
   self.screenshotsBroadcaster.delegate = [[FBMjpegServer alloc] init];
   NSError *error;
   if (![self.screenshotsBroadcaster startWithError:&error]) {
-    DDLogDebug(@"Cannot init screenshots broadcaster service on port %@. Original error: %@", @(CBX_DEFAULT_MJPEG_PORT), error.description);
+    DDLogDebug(@"Cannot init screenshots broadcaster service on port %@. Original error: %@", @(port), error.description);
     self.screenshotsBroadcaster = nil;
   }
 }

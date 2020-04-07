@@ -7,8 +7,8 @@
 
 static const NSUInteger ddLogLevel = DDLogLevelDebug;
 
-static NSUInteger const CBX_DEFAULT_SERVER_PORT = 41799;
-static NSUInteger const CBX_DEFAULT_MJPEG_PORT = 41801;
+static NSUInteger const CBX_DEFAULT_SERVER_PORT = 27753;
+static NSUInteger const CBX_DEFAULT_MJPEG_PORT = 27754;
 
 static NSUInteger FBMjpegServerScreenshotQuality = 100;
 static NSUInteger FBMjpegServerFramerate = 4;
