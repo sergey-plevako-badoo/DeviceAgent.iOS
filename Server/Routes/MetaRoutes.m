@@ -136,8 +136,8 @@
                              NSDictionary *body,
                              RouteResponse *response) {
 
-                     NSError *__autoreleasing*error;
-                     NSData *screenshotData = [XCUIScreen.mainScreen screenshotDataForQuality:1 rect:CGRectNull error:error];
+                     NSError *error = nil;
+                     NSData *screenshotData = [XCUIScreen.mainScreen screenshotDataForQuality:1 rect:CGRectNull error:&error];
                      if (nil == screenshotData) {
                        @throw [CBXException withFormat:@"Cannot take screenshot from the device"];
                      }
