@@ -6,7 +6,8 @@
 
 ### Requirements
 
-* Xcode >= 10.2.1
+* Xcode >= 10.3.1
+* macOS Mojave or higher
 * ruby >= 2.3
 
 ### Code Signing
