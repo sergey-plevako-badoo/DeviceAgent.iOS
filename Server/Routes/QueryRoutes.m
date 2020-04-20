@@ -22,7 +22,8 @@
                                                         NSDictionary *data,
                                                         RouteResponse *response) {
           [[SpringBoard application] handleAlertsOrThrow];
-          [response respondWithJSON:[Application tree]];
+          NSString *bundleId = data[CBX_BUNDLE_ID_KEY] ?: data[@"bundleId"] ?: @"";
+          [response respondWithJSON:[Application tree:bundleId]];
       }],
 
       [CBXRoute post:endpoint(@"/query", 1.0) withBlock:^(RouteRequest *request,
