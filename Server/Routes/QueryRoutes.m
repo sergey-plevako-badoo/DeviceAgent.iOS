@@ -24,6 +24,21 @@
           [[SpringBoard application] handleAlertsOrThrow];
           [response respondWithJSON:[Application tree]];
       }],
+      
+      [CBXRoute get:endpoint(@"/tree_app", 1.0) withBlock:^(RouteRequest *request,
+                                                        NSDictionary *data,
+                                                        RouteResponse *response) {
+          
+          NSArray* bundleIds = [request.params[CBX_BUNDLE_ID_KEY] componentsSeparatedByString:@","];
+          
+          NSMutableArray* resultsArray = [[NSMutableArray alloc] initWithCapacity:bundleIds.count];
+          
+          for (NSString *bundleId in bundleIds) {
+              [resultsArray addObject:[Application tree:bundleId]];
+          }
+          
+          [response respondWithJSON:resultsArray];
+      }],
 
       [CBXRoute post:endpoint(@"/query", 1.0) withBlock:^(RouteRequest *request,
                                                           NSDictionary *body,
@@ -44,6 +59,36 @@
               NSDictionary *json = [JSONUtils snapshotOrElementToJSON:el];
               [results addObject:json];
           }
+          
+          [response respondWithJSON:@{@"result" : results}];
+        }],
+      
+      [CBXRoute post:endpoint(@"/query_all", 1.0) withBlock:^(RouteRequest *request,
+                                                          NSDictionary *body,
+                                                          RouteResponse *response) {
+          // [[SpringBoard application] handleAlertsOrThrow];
+          QueryConfiguration *config;
+          config = [QueryConfigurationFactory configWithJSON:body
+                                                   validator:[Query validator]];
+          Query *query = [QueryFactory queryWithQueryConfiguration:config];
+          
+          NSArray* bundleIds = [request.params[CBX_BUNDLE_ID_KEY] componentsSeparatedByString:@","];
+          NSArray <XCUIElement *> *elements= nil;
+          NSMutableArray *results = nil;
+          
+          for (NSString *bundleId in bundleIds) {
+              elements = [query execute: bundleId];
+              
+              /*
+               Format and return the results
+               */
+              results = [NSMutableArray arrayWithCapacity:elements.count];
+              for (XCUIElement *el in elements) {
+                  NSDictionary *json = [JSONUtils snapshotOrElementToJSON:el];
+                  [results addObject:json];
+              }
+          }
+
           [response respondWithJSON:@{@"result" : results}];
       }],
 
