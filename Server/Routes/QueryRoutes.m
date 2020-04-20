@@ -22,8 +22,15 @@
                                                         NSDictionary *data,
                                                         RouteResponse *response) {
           [[SpringBoard application] handleAlertsOrThrow];
-          NSString *bundleId = data[CBX_BUNDLE_ID_KEY] ?: data[@"bundleId"] ?: @"";
-          [response respondWithJSON:[Application tree:bundleId]];
+          [response respondWithJSON:[Application tree]];
+      }],
+      
+      [CBXRoute get:endpoint(@"/tree_app", 1.0) withBlock:^(RouteRequest *request,
+                                                        NSDictionary *data,
+                                                        RouteResponse *response) {
+          [[SpringBoard application] handleAlertsOrThrow];
+          NSString *bundleIdentifier = request.params[CBX_BUNDLE_ID_KEY];
+          [response respondWithJSON:[Application tree:bundleIdentifier]];
       }],
 
       [CBXRoute post:endpoint(@"/query", 1.0) withBlock:^(RouteRequest *request,

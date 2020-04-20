@@ -56,6 +56,6 @@
 
  @return a dictionary of views.
  */
++ (NSDictionary *_Nonnull)tree;
 + (NSDictionary *_Nonnull)tree:(NSString *_Nullable)bundleId;
-
 @end

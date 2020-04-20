@@ -180,17 +180,17 @@ static Application *currentApplication;
     [currentApplication startSession];
 }
 
++ (NSDictionary *)tree {
+    XCUIApplication *application = [Application currentApplication];
+    
+    XCUIElementQuery *applicationQuery = [XCUIApplication cbxQuery:application];
+    XCElementSnapshot *applicationSnaphot = [applicationQuery cbx_elementSnapshotForDebugDescription];
+    return [Application snapshotTree:applicationSnaphot];
+}
+
 + (NSDictionary *)tree:(NSString *_Nullable)bundleId {
-    XCUIApplication *application = nil;
-    
-    if ([bundleId length] == 0){
-        application = [Application currentApplication];
-    }
-    else {
-        application = [[XCUIApplication alloc]
-        initWithBundleIdentifier:bundleId];
-    }
-    
+    XCUIApplication *application = [[XCUIApplication alloc] initWithBundleIdentifier:bundleId];
+
     XCUIElementQuery *applicationQuery = [XCUIApplication cbxQuery:application];
     XCElementSnapshot *applicationSnaphot = [applicationQuery cbx_elementSnapshotForDebugDescription];
     return [Application snapshotTree:applicationSnaphot];
