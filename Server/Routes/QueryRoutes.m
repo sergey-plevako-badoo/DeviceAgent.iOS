@@ -28,9 +28,16 @@
       [CBXRoute get:endpoint(@"/tree_app", 1.0) withBlock:^(RouteRequest *request,
                                                         NSDictionary *data,
                                                         RouteResponse *response) {
-          [[SpringBoard application] handleAlertsOrThrow];
-          NSString *bundleIdentifier = request.params[CBX_BUNDLE_ID_KEY];
-          [response respondWithJSON:[Application tree:bundleIdentifier]];
+          
+          NSArray* bundleIds = [request.params[CBX_BUNDLE_ID_KEY] componentsSeparatedByString:@","];
+          
+          NSMutableArray* resultsArray = [[NSMutableArray alloc] initWithCapacity:bundleIds.count];
+          
+          for (NSString *bundleId in bundleIds) {
+              [resultsArray addObject:[Application tree:bundleId]];
+          }
+          
+          [response respondWithJSON:resultsArray];
       }],
 
       [CBXRoute post:endpoint(@"/query", 1.0) withBlock:^(RouteRequest *request,
