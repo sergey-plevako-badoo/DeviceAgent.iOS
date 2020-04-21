@@ -37,7 +37,7 @@
               [resultsArray addObject:[Application tree:bundleId]];
           }
           
-          [response respondWithJSON:resultsArray];
+          [response respondWithJSON:@{@"result" : resultsArray}];
       }],
 
       [CBXRoute post:endpoint(@"/query", 1.0) withBlock:^(RouteRequest *request,
@@ -74,7 +74,7 @@
           
           NSArray* bundleIds = [request.params[CBX_BUNDLE_ID_KEY] componentsSeparatedByString:@","];
           NSArray <XCUIElement *> *elements= nil;
-          NSMutableArray *results = nil;
+          NSMutableArray *finalResults = [[NSMutableArray alloc] initWithCapacity:bundleIds.count];;
           
           for (NSString *bundleId in bundleIds) {
               elements = [query execute: bundleId];
@@ -82,14 +82,15 @@
               /*
                Format and return the results
                */
-              results = [NSMutableArray arrayWithCapacity:elements.count];
+              NSMutableArray *results = [NSMutableArray arrayWithCapacity:elements.count];
               for (XCUIElement *el in elements) {
                   NSDictionary *json = [JSONUtils snapshotOrElementToJSON:el];
                   [results addObject:json];
               }
+              [finalResults addObject:results];
           }
 
-          [response respondWithJSON:@{@"result" : results}];
+          [response respondWithJSON:@{@"result" : finalResults}];
       }],
 
       [CBXRoute get:endpoint(@"/springboard-alert", 1.0) withBlock:^(RouteRequest *request,
