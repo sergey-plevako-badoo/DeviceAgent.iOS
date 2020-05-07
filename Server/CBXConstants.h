@@ -8,6 +8,13 @@
 static const NSUInteger ddLogLevel = DDLogLevelDebug;
 
 static NSUInteger const CBX_DEFAULT_SERVER_PORT = 27753;
+static NSUInteger const CBX_DEFAULT_MJPEG_PORT = 27754;
+
+static NSUInteger FBMjpegServerScreenshotQuality = 100;
+static NSUInteger FBMjpegServerFramerate = 4;
+static NSUInteger FBScreenshotQuality = 1;  
+static NSUInteger FBMjpegScalingFactor = 50;
+
 static NSString *const CBXWebServerErrorDomain = @"sh.calaba.xcuitest-server";
 static NSString *const CBX_BUNDLE_ID_KEY = @"bundleID";
 static NSString *const CBX_LAUNCH_ARGS_KEY = @"launchArgs";
@@ -61,6 +68,8 @@ static NSString *const CBX_HAS_KEYBOARD_FOCUS_KEY = @"has_keyboard_focus";
 static NSString *const CBX_HITABLE_KEY = @"hitable";
 static NSString *const CBX_HIT_POINT_KEY = @"hit_point";
 static NSString *const CBX_INDEX_KEY = @"index";
+static NSString *const CBX_PARENT_TYPE_KEY = @"parent_type";
+static NSString *const CBX_DESCENDANT_TYPE_KEY = @"descendant_type";
 static NSString *const CBX_PROPERTY_KEY = @"property";
 static NSString *const CBX_PROPERTY_LIKE_KEY = @"property_like";
 static NSString *const CBX_TEST_ID = @"test_id";

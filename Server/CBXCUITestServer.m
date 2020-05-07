@@ -7,12 +7,16 @@
 #import "CBXProtocols.h"
 #import "CBXConstants.h"
 #import "CBXLogging.h"
+#import <CocoaLumberjack/CocoaLumberjack.h>
 #import "CBXOrientation.h"
 #import "CBXRoute.h"
+#import "FBTCPSocket.h"
+#import "FBMjpegServer.h"
 
 @interface CBXCUITestServer ()
 @property (atomic, strong) RoutingHTTPServer *server;
 @property (atomic, assign) BOOL isFinishedTesting;
+@property (nonatomic, nullable) FBTCPSocket *screenshotsBroadcaster;
 
 + (CBXCUITestServer *)sharedServer;
 - (id)init_private;
@@ -20,6 +24,15 @@
 @end
 
 @implementation CBXCUITestServer
+
++ (NSString*)valueFromArguments: (NSArray<NSString *> *)arguments forKey: (NSString*)key
+{
+  NSUInteger index = [arguments indexOfObject:key];
+  if (index == NSNotFound || index == arguments.count - 1) {
+    return nil;
+  }
+  return arguments[index + 1];
+}
 
 static NSString *serverName = @"CalabashXCUITestServer";
 
@@ -37,6 +50,10 @@ static NSString *serverName = @"CalabashXCUITestServer";
         [_server setRouteQueue:dispatch_get_main_queue()];
         [_server setDefaultHeader:@"CalabusDriver"
                                         value:@"CalabashXCUITestServer/1.0"];
+        [_server setDefaultHeader:@"Access-Control-Allow-Origin"
+                                        value:@"*"];
+        [_server setDefaultHeader:@"Access-Control-Allow-Headers"
+                                        value:@"Content-Type, X-Requested-With"];
         [_server setConnectionClass:[RoutingConnection self]];
         [_server setType:@"_calabus._tcp."];
 
@@ -79,9 +96,24 @@ static NSString *serverName = @"CalabashXCUITestServer";
 - (void)start {
     NSError *error;
     BOOL serverStarted = NO;
-
-    [self.server setPort:CBX_DEFAULT_SERVER_PORT];
-    DDLogDebug(@"Attempting to start the DeviceAgent server");
+    
+    NSString *portNumberString = [CBXCUITestServer valueFromArguments: NSProcessInfo.processInfo.arguments
+                                                   forKey: @"--port"];
+    NSUInteger port = (NSUInteger)[portNumberString integerValue];
+    
+    if (port == 0) {
+      [self.server setPort:CBX_DEFAULT_SERVER_PORT];
+    } else {
+        [self.server setPort:port];
+    }
+    
+    NSString *mjpegPortNumberString = [CBXCUITestServer valueFromArguments: NSProcessInfo.processInfo.arguments
+                                                   forKey: @"--mjpeg-server-port"];
+    NSUInteger mjpegPort = (NSUInteger)[mjpegPortNumberString integerValue];
+    
+    
+    DDLogDebug(@"Attempting to start the DeviceAgent server on port %@", @(port));
+    
     serverStarted = [self attemptToStartWithError:&error];
 
     if (!serverStarted) {
@@ -96,7 +128,14 @@ static NSString *serverName = @"CalabashXCUITestServer";
 
     DDLogDebug(@"Disabling screenshots in NSUserDefaults");
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"DisableScreenshots"];
-
+    
+    if (mjpegPort == 0) {
+        [self initScreenshotsBroadcaster: CBX_DEFAULT_MJPEG_PORT];
+    }
+    else {
+        [self initScreenshotsBroadcaster: mjpegPort];
+    }
+    
     while ([self.server isRunning] && !self.isFinishedTesting) {
         CFRunLoopRunInMode(kCFRunLoopDefaultMode, CBX_RUNLOOP_INTERVAL, false);
     }
@@ -111,6 +150,7 @@ static NSString *serverName = @"CalabashXCUITestServer";
                                          CBX_SERVER_SHUTDOWN_DELAY * NSEC_PER_SEC);
     dispatch_after(when, dispatch_get_main_queue(), ^{
         [self.server stop:NO];
+        [self stopScreenshotsBroadcaster];
         if ([self.server isRunning]) {
             DDLogDebug(@"DeviceAgent server has retired.");
         } else {
@@ -161,6 +201,27 @@ static NSString *serverName = @"CalabashXCUITestServer";
     for (CBXRoute *route in [UndefinedRoutes getRoutes]) {
         [self.server addRoute:route];
     }
+}
+
+- (void)initScreenshotsBroadcaster:(NSUInteger)port
+{
+  self.screenshotsBroadcaster = [[FBTCPSocket alloc]
+                                 initWithPort:(uint16_t)port];
+  self.screenshotsBroadcaster.delegate = [[FBMjpegServer alloc] init];
+  NSError *error;
+  if (![self.screenshotsBroadcaster startWithError:&error]) {
+    DDLogDebug(@"Cannot init screenshots broadcaster service on port %@. Original error: %@", @(port), error.description);
+    self.screenshotsBroadcaster = nil;
+  }
+}
+
+- (void)stopScreenshotsBroadcaster
+{
+  if (nil == self.screenshotsBroadcaster) {
+    return;
+  }
+
+  [self.screenshotsBroadcaster stop];
 }
 
 @end
